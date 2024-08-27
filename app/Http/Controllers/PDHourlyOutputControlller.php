@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportPDHourlyoutput;
 use App\Models\PDHourlyOutPut;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Mpdf\Mpdf;
+use Psy\Command\WhereamiCommand;
 use Validator;
 use Redirect;
 
@@ -22,6 +26,11 @@ class PDHourlyOutputControlller extends Controller
         // return view('layout.pdhourlyoutput.index', compact(['PDHourlyOutput']));
         $data = PDHourlyOutput::all();
         return view('layout.pdhourlyoutput.index', ['data' =>$data]);
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new ExportPDHourlyoutput, "pdhourlyoutput.xlsx");
     }
 
     public function filter(Request $request) 
@@ -68,8 +77,36 @@ class PDHourlyOutputControlller extends Controller
      */
     public function store(Request $request)
     {
+        $validation = $request->validate([
+            'name' =>'required|max:30',
+            'time' =>'required',
+            'target' =>'required',
+            'output' =>'required',
+            'accm' =>'required',
+            'date' =>'required',
+            'process' =>'required',
+            'shift' =>'required',
+            'lot' =>'required'
+        ]);
+        // dd($request->all());
         PDHourlyOutput::create($request->all());
-        return Redirect::to('pdhourlyoutput')->with('success', 'Data successfully added !');
+        return Redirect::to('/pdhourlyoutput')->with('success', 'Data successfully added !');
+        // return redirect()->route('pdhourlyoutput')->with('sccess', 'Data Berhasil disimpan !');
+        // $PD = new PDHourlyOutPut;
+
+        // $PD->name = $request->input('name');
+        // $PD->time = $request->input('time');
+        // $PD->target = $request->input('target');
+        // $PD->output = $request->input('output');
+        // $PD->accm = $request->input('accm');
+        // $PD->date = $request->input('date');
+        // $PD->process = $request->input('process');
+        // $PD->shift = $request->input('shift');
+        // $PD->lot = $request->input('lot');
+        // $PD->deskription = $request->input('deskription');
+
+        // $PD->save();
+        // return redirect('/pdhourlyoutput')->with('success', 'Data successfully insert.');
 
         // $request->validate([
         //     // 'time' => 'required|in:6.45-7.45,7.45-8.45',
@@ -170,7 +207,9 @@ class PDHourlyOutputControlller extends Controller
      */
     public function destroy($id)
     {
-        $data = PDHourlyOutput::find($id);
+        // DB::table('pdhourlyoutput')->where('id', $id)->delete();
+        // PDHourlyOutPut::table('pdhourlyoutput')->where('id', $id)->delete();
+        $data = PDHourlyOutput::findOrFail($id);
         $data->delete();
         return redirect()->back()->with('success', 'Data successfully deleted !');
 

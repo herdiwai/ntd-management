@@ -53,6 +53,9 @@ Route::group(['middleware' => 'auth'], function() {
     //Production Hourly Output PDF
     Route::get('/pdhourlyoutput/view/pdf', [PDHourlyOutputControlller::class, 'view_pdf']);
     Route::get('/pdhourlyoutput/download/pdf', [PDHourlyOutputControlller::class, 'download_pdf']);
+
+    //Production Hourly Ouput Export Excel
+    Route::get('pdhourlyoutput/export/excel', [PDHourlyOutputControlller::class, 'export_excel']);
 });
 
 

@@ -3,505 +3,249 @@
 @extends('layout.main')
 @section('title','Production hourly output')
 @section('content')
-{{-- <div id="page-wrapper">
+
+
+{{-- @section('modal')
+<div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Create Data</h4>
+            </div>
+            <form action="{{ route('pdhourlyoutput.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+
+                    <div class="form-group row">
+                        <label @error('name') for="example-number-input" class="col-2 col-form-label text-danger" 
+                        @enderror>Production Name @error('name') | {{ $message }} @enderror
+                        </label>
+                        <div class="col-10">
+                            <input class="form-control" name="name" value="{{ old('name') }}" type="text" id="example-number-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-number-input" class="col-2 col-form-label">Time</label>
+                        <div class="col-10">
+                            <input class="form-control" name="time" type="text" id="example-number-input">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        <label for="example-number-input" class="col-2 col-form-label">Target</label>
+                        <div class="col-10">
+                            <input class="form-control" name="target" type="text" id="example-number-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-number-input" class="col-2 col-form-label">Output</label>
+                        <div class="col-10">
+                            <input class="form-control" name="output" type="text" id="example-number-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-number-input" class="col-2 col-form-label">ACCM</label>
+                        <div class="col-10">
+                            <input class="form-control" name="accm" type="text" id="example-number-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-number-input" class="col-2 col-form-label">Date</label>
+                        <div class="col-10">
+                            <input class="form-control" name="date" type="text" id="example-number-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-number-input" class="col-2 col-form-label">Process</label>
+                        <div class="col-10">
+                            <input class="form-control" name="process" type="text" id="example-number-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-number-input" class="col-2 col-form-label">Shift</label>
+                        <div class="col-10">
+                            <input class="form-control" name="shift" type="text" id="example-number-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-number-input" class="col-2 col-form-label">Lot</label>
+                        <div class="col-10">
+                            <input class="form-control" name="lot" type="text" id="example-number-input">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="example-text-input" class="col-2 col-form-label">Description</label>
+                        <div class="col-10">
+                            <textarea class="form-control" name="deskription" rows="5"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+           
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger waves-effect waves-light">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection --}}
+
+<div id="page-wrapper">
     <div class="container-fluid">
         <div class="row bg-title">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">NTD Management</h4>
+                <h4 class="page-title">Production Hourly Output</h4>
             </div>
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                <a href="https://themeforest.net/item/elite-admin-responsive-dashboard-web-app-kit-/16750820" target="_blank" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Buy Now</a>
+                {{-- <a href="https://themeforest.net/item/elite-admin-responsive-dashboard-web-app-kit-/16750820" target="_blank" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Buy Now</a> --}}
                 <ol class="breadcrumb">
-                    <li><a href="index.html">Dashboard</a></li>
-                    <li class="active">Dashboard 1</li>
+                    <li><a href="{{ URL::to('/pdhourlyoutput') }}">@yield('title')</a></li>
+                    <li class="active">@yield('title')</li>
                 </ol>
             </div>
-            
             <!-- /.col-lg-12 -->
         </div>
-        <!-- /.row -->
         <div class="row">
-            <div class="col-sm-10">
-                <div class="white-box">
-                    <h3 class="box-title m-b-0">Data Table</h3>
-                    <p class="text-muted m-b-30">Data table example</p>
-                    <div class="table-responsive">
-                        <table id="myTable" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>MONTH</th>
-                                    <th>Week</th>
-                                    <th>DAYS</th>
-                                    <th>SHIFT</th>
-                                    <th>OPERATOR</th>
-                                    <th>EQUIPMENT NO</th> 
-                                    <th>EQUIPMENT NAME</th>
-                                    <th>PROCESS</th>
-                                    <th>LINE</th>
-                                    <th>CODE</th>
-                                    <th>RESPON TIME</th>
-                                    <th>START TIME</th>
-                                    <th>END TIME</th>
-                                    <th>DURATION</th>
-                                    <th>DOWNTIME</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>REPAIR BY</th>
-                                    <th>MC ISSUE</th>
-                                    <th>ROOT CAUSE</th>
-                                    <th>ACTION</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>System Architect</td>
-                                        <td>Edinburgh</td>
-                                        <td>61</td>
-                                        <td>2011/04/25</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                        <td>$320,800</td>
-                                    </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-       
-            
-        </div>
-        {{-- <div class="row">
-            <div class="col-lg-4 col-md-12">
-                <div class="white-box">
-                    <h3 class="box-title"><small class="pull-right m-t-10 text-success"><i class="fa fa-sort-asc"></i> 18% High then last month</small> Site Traffic</h3>
-                    <div class="stats-row">
-                        <div class="stat-item">
-                            <h6>Overall Growth</h6> <b>80.40%</b></div>
-                        <div class="stat-item">
-                            <h6>Montly</h6> <b>15.40%</b></div>
-                        <div class="stat-item">
-                            <h6>Day</h6> <b>5.50%</b></div>
-                    </div>
-                    <div id="sparkline8"></div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="white-box">
-                    <h3 class="box-title"><small class="pull-right m-t-10 text-danger"><i class="fa fa-sort-desc"></i> 18% High then last month</small>Site Traffic</h3>
-                    <div class="stats-row">
-                        <div class="stat-item">
-                            <h6>Overall Growth</h6> <b>80.40%</b></div>
-                        <div class="stat-item">
-                            <h6>Montly</h6> <b>15.40%</b></div>
-                        <div class="stat-item">
-                            <h6>Day</h6> <b>5.50%</b></div>
-                    </div>
-                    <div id="sparkline9"></div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-                <div class="white-box">
-                    <h3 class="box-title"><small class="pull-right m-t-10 text-success"><i class="fa fa-sort-asc"></i> 18% High then last month</small>Site Traffic</h3>
-                    <div class="stats-row">
-                        <div class="stat-item">
-                            <h6>Overall Growth</h6> <b>80.40%</b></div>
-                        <div class="stat-item">
-                            <h6>Montly</h6> <b>15.40%</b></div>
-                        <div class="stat-item">
-                            <h6>Day</h6> <b>5.50%</b></div>
-                    </div>
-                    <div id="sparkline10"></div>
-                </div>
-            </div>
-        </div>
-        <!-- /.row -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="white-box">
-                    <h3 class="box-title">Site Visits</h3>
+            <div class="col-lg-12">
+                <div class="white-box button-box">
+                <!-- <h3 class="m-b-0 box-title">Outline Buttons </h3>
+                    <p class="text-muted m-b-30">Use a classes <code>btn btn-default btn-outline</code>to quickly create a Outline btn.</p> -->
                     <div class="row">
-                        <div class="col-md-12 col-lg-8">
-                            <div id="world-map-marker" style="height: 490px;"></div>
+                        {{-- <a href="{{ route('pdhourlyoutput.create') }}"> </a> --}}
+                        <div class="col-lg-2 col-sm-2 col-xs-12">
+                            {{-- <button class="btn btn-block btn-outline btn-info waves-effect" data-toggle="modal" data-target="#responsive-modal">  <i class="ti-hand-point-up"></i> ADD DATA </button> --}}
+                            <button class="btn btn-block btn-outline btn-info waves-effect"> <a href="{{ route('pdhourlyoutput.create') }}"> <i class="ti-hand-point-up"></i> ADD DATA </button> </a>
                         </div>
-                        <div class="col-md-12 col-lg-4">
-                            <ul class="country-state slimscrollcountry">
-                                <li>
-                                    <h2>6350</h2> <small>From India</small>
-                                    <div class="pull-right">48% <i class="fa fa-level-up text-success"></i></div>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:48%;"> <span class="sr-only">48% Complete</span></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h2>3250</h2> <small>From UAE</small>
-                                    <div class="pull-right">98% <i class="fa fa-level-up text-success"></i></div>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-inverse" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:98%;"> <span class="sr-only">98% Complete</span></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h2>1250</h2> <small>From Australia</small>
-                                    <div class="pull-right">75% <i class="fa fa-level-down text-danger"></i></div>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:75%;"> <span class="sr-only">75% Complete</span></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h2>1350</h2> <small>From USA</small>
-                                    <div class="pull-right">48% <i class="fa fa-level-up text-success"></i></div>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:48%;"> <span class="sr-only">48% Complete</span></div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <h2>350</h2> <small>From UK</small>
-                                    <div class="pull-right">68% <i class="fa fa-level-down text-danger"></i></div>
-                                    <div class="progress">
-                                        <div class="progress-bar progress-bar-purple" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:68%;"> <span class="sr-only">48% Complete</span></div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="row">
-                                <div class="col-md-4 col-sm-4 col-xs-12 m-t-20 text-center">
-                                    <div class="chart easy-pie-chart-2" data-percent="75"> <span class="percent">75</span>
-                                        <br/>
-                                        <h4>New Users Visits</h4>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 m-t-20 text-center">
-                                    <div class="chart easy-pie-chart-1" data-percent="65"> <span class="percent">75</span>
-                                        <br/>
-                                        <h4>Returning Users</h4>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 col-sm-4 col-xs-12 m-t-20 text-center">
-                                    <div class="chart easy-pie-chart-3" data-percent="25"> <span class="percent">75</span>
-                                        <br/>
-                                        <h4>Bounce Rate</h4>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-lg-2 col-sm-2 col-xs-12">
+                            <button class="btn btn-block btn-outline btn-primary waves-effect" ><i class="ti-view-list-alt"></i> VIEW PDF </button> 
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--row -->
-        <div class="row">
-            <div class="col-md-12 col-lg-4">
-                <div class="white-box">
-                    <h3 class="box-title">Browser Stats</h3>
-                    <ul class="basic-list">
-                        <li>Google Chrome <span class="pull-right label-danger label">21.8%</span></li>
-                        <li>Mozila Firefox <span class="pull-right label-purple label">21.8%</span></li>
-                        <li>Apple Safari <span class="pull-right label-success label">21.8%</span></li>
-                        <li>Internet Explorer <span class="pull-right label-info label">21.8%</span></li>
-                        <li>Opera mini <span class="pull-right label-warning label">21.8%</span></li>
-                        <li>Mozila Firefox <span class="pull-right label-purple label">21.8%</span></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-12 col-lg-4">
-                <div class="white-box">
-                    <h3 class="box-title">CPU LOAD</h3>
-                    <div class="stats-row">
-                        <div class="stat-item">
-                            <h6>Usage</h6> <b>60GB</b></div>
-                        <div class="stat-item">
-                            <h6>Space</h6> <b>320 GB</b></div>
-                        <div class="stat-item">
-                            <h6>CPU</h6> <b>50%</b></div>
-                    </div>
-                    <div style="height: 280px;">
-                        <div id="placeholder" class="demo-placeholder"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 col-lg-4">
-                <div class="white-box">
-                    <div class="user-bg"> <img src="../plugins/images/large/img1.jpg" alt="user" style="100%">
-                        <div class="overlay-box">
-                            <div class="user-content">
-                                <a href="javascript:void(0)"><img alt="img" class="thumb-lg img-circle" src="../plugins/images/users/genu.jpg"></a>
-                                <h4 class="text-white">User Name</h4>
-                                <h5 class="text-white">info@myadmin.com</h5>
-                            </div>
+                        <div class="col-lg-2 col-sm-2 col-xs-12">
+                            <button class="btn btn-block btn-outline btn-success waves-effect" ><i class="ti-download"></i> DOWNLOAD PDF </button>
                         </div>
-                    </div>
-                    <div class="user-btm-box">
-                        <div class="row">
-                            <div class="col-md-4 col-sm-4 text-center">
-                                <p class="text-purple"><i class="ti-facebook"></i></p>
-                                <h1>258</h1>
-                            </div>
-                            <div class="col-md-4 col-sm-4 text-center">
-                                <p class="text-blue"><i class="ti-twitter"></i></p>
-                                <h1>125</h1>
-                            </div>
-                            <div class="col-md-4 col-sm-4 text-center">
-                                <p class="text-danger"><i class="ti-dribbble"></i></p>
-                                <h1>556</h1>
-                            </div>
-                            <div class="stats-row col-md-12 m-t-20 m-b-0 text-center">
-                                <div class="stat-item">
-                                    <h6>Contact info</h6> <b><i class="ti-mobile"></i> 123-456-7890</b></div>
-                            </div>
+                        <div class="col-lg-2 col-sm-2 col-xs-12">
+                            <button class="btn btn-block btn-outline btn-primary waves-effect"> <a href="{{ url('pdhourlyoutput/export/excel') }}"> <i class="ti-hand-point-up"></i> Download Excel </button> </a>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>    
-        <!-- /.row -->
-            <!-- .right-sidebar -->
-            <div class="right-sidebar">
-                <div class="slimscrollright">
-                    <div class="rpanel-title"> Service Panel <span><i class="ti-close right-side-toggle"></i></span> </div>
-                    <div class="r-panel-body">
-                        <ul>
-                            <li><b>Layout Options</b></li>
-                            <li>
-                                <div class="checkbox checkbox-info">
-                                    <input id="checkbox1" type="checkbox" class="fxhdr">
-                                    <label for="checkbox1"> Fix Header </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox checkbox-warning">
-                                    <input id="checkbox2" type="checkbox" class="fxsdr">
-                                    <label for="checkbox2"> Fix Sidebar </label>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="checkbox checkbox-success">
-                                    <input id="checkbox4" type="checkbox" class="open-close">
-                                    <label for="checkbox4"> Toggle Sidebar </label>
-                                </div>
-                            </li>
-                        </ul>
-                        <ul id="themecolors" class="m-t-20">
-                            <li><b>With Light sidebar</b></li>
-                            <li><a href="javascript:void(0)" theme="default" class="default-theme working">1</a></li>
-                            <li><a href="javascript:void(0)" theme="green" class="green-theme">2</a></li>
-                            <li><a href="javascript:void(0)" theme="gray" class="yellow-theme">3</a></li>
-                            <li><a href="javascript:void(0)" theme="blue" class="blue-theme">4</a></li>
-                            <li><a href="javascript:void(0)" theme="purple" class="purple-theme">5</a></li>
-                            <li><a href="javascript:void(0)" theme="megna" class="megna-theme">6</a></li>
-                            <li><b>With Dark sidebar</b></li>
-                            <br/>
-                            <li><a href="javascript:void(0)" theme="default-dark" class="default-dark-theme">7</a></li>
-                            <li><a href="javascript:void(0)" theme="green-dark" class="green-dark-theme">8</a></li>
-                            <li><a href="javascript:void(0)" theme="gray-dark" class="yellow-dark-theme">9</a></li>
-                            <li><a href="javascript:void(0)" theme="blue-dark" class="blue-dark-theme">10</a></li>
-                            <li><a href="javascript:void(0)" theme="purple-dark" class="purple-dark-theme">11</a></li>
-                            <li><a href="javascript:void(0)" theme="megna-dark" class="megna-dark-theme">12</a></li>
-                        </ul>
-                        <ul class="m-t-20 chatonline">
-                            <li><b>Chat option</b></li>
-                            <li>
-                                <a href="javascript:void(0)"><img src="../plugins/images/users/varun.jpg" alt="user-img" class="img-circle"> <span>Varun Dhavan <small class="text-success">online</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img src="../plugins/images/users/genu.jpg" alt="user-img" class="img-circle"> <span>Genelia Deshmukh <small class="text-warning">Away</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img src="../plugins/images/users/ritesh.jpg" alt="user-img" class="img-circle"> <span>Ritesh Deshmukh <small class="text-danger">Busy</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img src="../plugins/images/users/arijit.jpg" alt="user-img" class="img-circle"> <span>Arijit Sinh <small class="text-muted">Offline</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img src="../plugins/images/users/govinda.jpg" alt="user-img" class="img-circle"> <span>Govinda Star <small class="text-success">online</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img src="../plugins/images/users/hritik.jpg" alt="user-img" class="img-circle"> <span>John Abraham<small class="text-success">online</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img src="../plugins/images/users/john.jpg" alt="user-img" class="img-circle"> <span>Hritik Roshan<small class="text-success">online</small></span></a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)"><img src="../plugins/images/users/pawandeep.jpg" alt="user-img" class="img-circle"> <span>Pwandeep rajan <small class="text-success">online</small></span></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- /.right-sidebar -->
-        </div> --}}
-        <!-- /.container-fluid -->
-    </div>
-    <!-- /#page-wrapper -->
-    {{-- <footer class="footer text-center"> 2017 &copy; Elite Admin brought to you by themedesigner.in </footer> --}}
-</div> 
-
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <div class="row bg-title">
-                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h4 class="page-title">Production Hourly Output</h4>
-                </div>
-                <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                    {{-- <a href="https://themeforest.net/item/elite-admin-responsive-dashboard-web-app-kit-/16750820" target="_blank" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Buy Now</a> --}}
-                    <ol class="breadcrumb">
-                        <li><a href="index.html">@yield('title')</a></li>
-                        <li class="active">@yield('title')</li>
-                    </ol>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="white-box button-box">
-                    <!-- <h3 class="m-b-0 box-title">Outline Buttons </h3>
-                        <p class="text-muted m-b-30">Use a classes <code>btn btn-default btn-outline</code>to quickly create a Outline btn.</p> -->
-                        <div class="row">
-                            <div class="col-lg-2 col-sm-2 col-xs-12">
-                                <button class="btn btn-block btn-outline btn-info waves-effect"> <a href="{{ route('pdhourlyoutput.create') }}"> <i class="ti-hand-point-up"></i> ADD DATA </button> </a>
-                            </div>
-                            <div class="col-lg-2 col-sm-2 col-xs-12">
-                                <button class="btn btn-block btn-outline btn-primary waves-effect" ><i class="ti-view-list-alt"></i> VIEW PDF </button> 
-                            </div>
-                            <div class="col-lg-2 col-sm-2 col-xs-12">
-                                <button class="btn btn-block btn-outline btn-success waves-effect" ><i class="ti-download"></i> DOWNLOAD PDF </button>
-                            </div>
-                            <!-- <div class="col-lg-2 col-sm-4 col-xs-12">
-                                <button class="btn btn-block btn-outline btn-danger waves-effect">Danger</button>
-                            </div>
-                            <div class="col-lg-2 col-sm-4 col-xs-12">
-                                <button class="btn btn-block btn-outline btn-warning waves-effect">Warning</button>
-                            </div> -->
+                        <!-- <div class="col-lg-2 col-sm-4 col-xs-12">
+                            <button class="btn btn-block btn-outline btn-danger waves-effect">Danger</button>
                         </div>
-                        <h3 class="m-b-0 m-t-30 box-title"></h3>
-                            <p class="text-muted m-b-30"></p>
-                        <div class="row">
-                             <!-- Filter by date -->
-                            <form action="/filter" class="form" method="GET">
-                                <div class="form-group row">
-                                    <label for="example-date-input" class="col-2 col-form-label">Start Date</label>
-                                <div class="col-8">
-                                        <input class="form-control" type="date" name="start_date" id="example-date-input">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="example-date-input" class="col-2 col-form-label">End Date</label>
-                                <div class="col-8">
-                                        <input class="form-control" type="date" name="end_date" id="example-date-input">
-                                    </div>
-                                </div>
-                                <button type="submit" class='fcbtn btn btn-danger btn-outline btn-1b waves-effect'> <i class="ti-filter"></i> Filter </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Table Production Hourly Output -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="white-box">
-                        <!-- <div class="row">
-                            <div class="col-lg-2 col-sm-4 col-xs-12">
-                                <button class="btn btn-block btn-default waves-effect" a href="{{ route('pdhourlyoutput.create') }}" > ADD DATA</button> </a>
-                            </div>
-                            <div class="col-lg-2 col-sm-4 col-xs-12">
-                                <button class="btn btn-block btn-default waves-effect" a href="#" > VIEW PDF </button> </a>
-                            </div>
-                            <div class="col-lg-2 col-sm-4 col-xs-12">
-                                <button class="btn btn-block btn-default waves-effect" a href="#" > DOWNLOAD PDF </button> </a>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-8">
-                                
-                            <div>
+                        <div class="col-lg-2 col-sm-4 col-xs-12">
+                            <button class="btn btn-block btn-outline btn-warning waves-effect">Warning</button>
                         </div> -->
-
-                    <!-- <div class="m-b-30">
-                        <a href="{{ route('pdhourlyoutput.create') }}" class='fcbtn btn btn-primary btn-outline btn-1b waves-effect'> <i class="fas fa-pen"> ADD DATA </a>
-                    </div> -->
-                    <!-- @if (strpos(url()->current(), 'pdf') == false)
-                        <div class="m-b-30">
-                            <a href="{{ url('pdhourlyoutput/view/pdf') }}" class='fcbtn btn btn-primary btn-outline btn-1b waves-effect'> <i class="fas fa-pen"> View PDF </a>
-                        </div>
-                        <div class="m-b-30">
-                            <a href="{{ url('pdhourlyoutput/download/pdf') }}" class='fcbtn btn btn-primary btn-outline btn-1b waves-effect'> <i class="fas fa-pen"> Download PDF </a>
-                        </div>
-                    @endif -->
-                   
-                        <!-- <h3 class="box-title m-b-0">Data Table</h3>
-                        <p class="text-muted m-b-30">Data table example</p> -->
-                        <div class="table-responsive">
-
-                        @if (Session('success'))
-                            <div class="alert alert-info">{{ Session('success') }}</div>
-                        @endif
-
-                            <table id="myTable" class="table table-striped">
-                            <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>NAME</th>
-                                        <th>TIME</th>
-                                        <th>TARGET</th>
-                                        <th>OUTPUT</th>
-                                        <th>ACCM</th>
-                                        <th>DATE</th>
-                                        <th>PROCESS</th> 
-                                        <th>SHIFT</th>
-                                        <th>LOT</th>
-                                        <th>DESKRIPTION</th>
-                                        <th>Created_at</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($data as $pd)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pd->name }}</td>
-                                            <td>{{ $pd->time }}</td>
-                                            <td>{{ $pd->target }}</td>
-                                            <td>{{ $pd->output }}</td>
-                                            <td>{{ $pd->accm }}</td>
-                                            <td>{{ $pd->date }}</td>
-                                            <td>{{ $pd->process }}</td>
-                                            <td>{{ $pd->shift }}</td>
-                                            <td>{{ $pd->lot }}</td>
-                                            <td>{{ $pd->deskription }}</td>
-                                            <td>{{ $pd->created_at->format('Y-m-d') }}</td>
-                                            <td>
-                                                <a href="{{ route('pdhourlyoutput.edit', $pd->id) }}" class='fcbtn btn btn-primary btn-outline btn-1b waves-effect'> <i class="ti-pencil-alt"></i> Edit </a>
-                                                <form action="{{ route('pdhourlyoutput.destroy', $pd->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class='fcbtn btn btn-danger btn-outline btn-1b waves-effect'> <i class="ti-eraser"></i> Delete </button>
-                                                </fornm>
-                                            </td>
-                                        </tr>
-                                    @endforeach 
-                                </tbody>
-                            </table>
-                        </div>
+                    </div>
+                    <h3 class="m-b-0 m-t-30 box-title"></h3>
+                        <p class="text-muted m-b-30"></p>
+                    <div class="row">
+                            <!-- Filter by date -->
+                        <form action="/filter" class="form" method="GET">
+                            <div class="form-group row">
+                                <label for="example-date-input" class="col-2 col-form-label">Start Date</label>
+                            <div class="col-8">
+                                    <input class="form-control" type="date" name="start_date" id="example-date-input">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="example-date-input" class="col-2 col-form-label">End Date</label>
+                            <div class="col-8">
+                                    <input class="form-control" type="date" name="end_date" id="example-date-input">
+                                </div>
+                            </div>
+                            <button type="submit" class='btn btn-primary btn-sm'> <i class="ti-filter"></i> Filter </button>
+                            {{-- <button type="button" name="refresh" id="refresh" class="btn btn-warning btn-sm">Refresh</button> --}}
+                        </form>
                     </div>
                 </div>
+            </div>
         </div>
-    </div>
+        
+        <!-- Table Production Hourly Output -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="white-box">
+                    <!-- <div class="row">
+                        <div class="col-lg-2 col-sm-4 col-xs-12">
+                            <button class="btn btn-block btn-default waves-effect" a href="{{ route('pdhourlyoutput.create') }}" > ADD DATA</button> </a>
+                        </div>
+                        <div class="col-lg-2 col-sm-4 col-xs-12">
+                            <button class="btn btn-block btn-default waves-effect" a href="#" > VIEW PDF </button> </a>
+                        </div>
+                        <div class="col-lg-2 col-sm-4 col-xs-12">
+                            <button class="btn btn-block btn-default waves-effect" a href="#" > DOWNLOAD PDF </button> </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            
+                        <div>
+                    </div> -->
 
-    <!-- /#page-wrapper -->
-    <!-- <footer class="footer text-center"> 2017 &copy; Elite Admin brought to you by themedesigner.in </footer>
-</div> -->
+                <!-- <div class="m-b-30">
+                    <a href="{{ route('pdhourlyoutput.create') }}" class='fcbtn btn btn-primary btn-outline btn-1b waves-effect'> <i class="fas fa-pen"> ADD DATA </a>
+                </div> -->
+                <!-- @if (strpos(url()->current(), 'pdf') == false)
+                    <div class="m-b-30">
+                        <a href="{{ url('pdhourlyoutput/view/pdf') }}" class='fcbtn btn btn-primary btn-outline btn-1b waves-effect'> <i class="fas fa-pen"> View PDF </a>
+                    </div>
+                    <div class="m-b-30">
+                        <a href="{{ url('pdhourlyoutput/download/pdf') }}" class='fcbtn btn btn-primary btn-outline btn-1b waves-effect'> <i class="fas fa-pen"> Download PDF </a>
+                    </div>
+                @endif -->
+                
+                    <!-- <h3 class="box-title m-b-0">Data Table</h3>
+                    <p class="text-muted m-b-30">Data table example</p> -->
+                    <div class="table-responsive">
+
+                    @if (Session('success'))
+                        <div class="alert alert-info">{{ Session('success') }}</div>
+                    @endif
+
+                        @include('layout.pdhourlyoutput.table', $data)
+
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+<!-- sample modal content -->
+<!-- /.modal -->
+
+{{-- <img src="../plugins/images/model.png" alt="default" data-toggle="modal" data-target="#responsive-modal" class="model_img img-responsive" /> --}}
+<!-- Button trigger modal -->
 
 @endsection
+
+{{-- @push('after-scripts')
+
+<script>
+    
+<script>
+     $('.sa-warning').click(function(){
+            swal({   
+                title: "Are you sure?",   
+                text: "You will not be able to recover this imaginary file!",   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: "Yes, delete it!",   
+                closeOnConfirm: false 
+            }, function(){   
+                swal("Deleted!", "Your imaginary file has been deleted.", "success"); 
+            });
+        });
+</script>
+</script>
+
+@endpush --}}

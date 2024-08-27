@@ -24,6 +24,8 @@
      <link href="{{ asset('eliteadmin/plugins/bower_components/datatables/media/css/buttons.dataTables.min.css') }}" rel="stylesheet" type="text/css" />
      <!-- animation CSS -->
     <link href="{{ asset('eliteadmin/css/animate.css') }}" rel="stylesheet">
+    <!--alerts CSS -->
+    <link href="{{ asset('eliteadmin/plugins/bower_components/sweetalert/sweetalert.css') }}" rel="stylesheet" type="text/css">
     <!-- Custom CSS -->
     <link href="{{ asset('eliteadmin/css/style.css') }}" rel="stylesheet">
     <!-- color CSS -->
@@ -65,15 +67,19 @@
         <!-- Side Bar --!>
             @include('layout.sidebar')
         <!-- End Side Bar -->
-
+        </div>
+    </div>
+            @yield('modal')
         <!-- Page Content -->
             @yield('content')
         {{-- @yield('content') --}}
     </div>
+
     <footer class="footer text-center"> 2020 SMBPDS </footer>
     </div>
         @stack('before-scripts')
 
+        
         <script src="{{ asset('eliteadmin/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
         <!-- Bootstrap Core JavaScript -->
         <script src="{{ asset('eliteadmin/bootstrap/dist/js/tether.min.js') }}"></script>
@@ -101,13 +107,10 @@
         <script src="{{ asset('eliteadmin/js/dashboard2.js') }}"></script>
         <script src="{{ asset('eliteadmin/plugins/bower_components/datatables/jquery.dataTables.min.js') }}"></script>
         <!-- start - This is for export functionality only -->
-        <!-- <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-        <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-        <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-        <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script> -->
+        <!-- Sweet-Alert  -->
+        <script src="{{ asset('eliteadmin/plugins/bower_components/sweetalert/sweetalert.min.js') }}"></script>
+        <script src="{{ asset('eliteadmin/plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
+        
         <!--Style Switcher -->
         <script src="{{ asset('eliteadmin/plugins/bower_components/dataTables.buttons.min.js' ) }}"></script>
         <script src="{{ asset('eliteadmin/plugins/bower_components/buttons.flash.min.js' ) }}"></script>
@@ -116,7 +119,8 @@
         <script src="{{ asset('eliteadmin/plugins/bower_components/vfs_fonts.js' ) }}"></script>
         <script src="{{ asset('eliteadmin/plugins/bower_components/buttons.html5.min.js' ) }}"></script>
         <script src="{{ asset('eliteadmin/plugins/bower_components/buttons.print.min.js' ) }}"></script>
-
+            
+        @stack('after-scripts')
         <script>
             $(document).ready(function() {
                 $('#myTable').DataTable();
@@ -168,10 +172,11 @@
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ]
             });
-            </script>
+
+        </script>
         <script src="{{ asset('eliteadmin/plugins/bower_components/styleswitcher/jQuery.style.switcher.js') }}"></script>
 
-        @stack('page-scripts')
+        
 </body>
 
 </html>
