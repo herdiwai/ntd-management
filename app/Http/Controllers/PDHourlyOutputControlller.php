@@ -11,6 +11,7 @@ use Mpdf\Mpdf;
 use Psy\Command\WhereamiCommand;
 use Validator;
 use Redirect;
+// use Illuminate\View\View;
 
 class PDHourlyOutputControlller extends Controller
 {
@@ -24,8 +25,9 @@ class PDHourlyOutputControlller extends Controller
 
         // $PDHourlyOutput = PDHourlyOutput::get();
         // return view('layout.pdhourlyoutput.index', compact(['PDHourlyOutput']));
-        $data = PDHourlyOutput::all();
-        return view('layout.pdhourlyoutput.index', ['data' =>$data]);
+        $data = DB::table('pdhourlyoutput')->latest()->get();
+        return view('layout.pdhourlyoutput.index', compact('data'));
+        // return view('layout.pdhourlyoutput.index', ['data' =>$data]);
     }
 
     public function export_excel()
@@ -69,7 +71,14 @@ class PDHourlyOutputControlller extends Controller
     {
         // $PDHO = PDHourlyOutput::get();
         // return view('page.pdhourlyoutput.create', compact(['PDHO']));
-        return view('layout.pdhourlyoutput.create');
+        $data = PDHourlyOutput::all();
+        $shift = ['1st','2nd','3rd'];
+        $lot = ['B','C','D','E'];
+        $process = ['P1','P2','P3','P4','P5'];
+        $line = ['1','2','3','4'];
+        $model = ['KEE','KIE','K-SUPREME GSV','KCS','KSS','K-SLIM GSV','K90','K55'];
+        return view('layout.pdhourlyoutput.create', compact('data','shift','lot','process','line','model'));
+        // return view('layout.pdhourlyoutput.create');
     }
 
     /**
@@ -86,7 +95,9 @@ class PDHourlyOutputControlller extends Controller
             'date' =>'required',
             'process' =>'required',
             'shift' =>'required',
-            'lot' =>'required'
+            'lot' =>'required',
+            'line' =>'required',
+            'model' =>'required'
         ]);
         // dd($request->all());
         PDHourlyOutput::create($request->all());
@@ -174,6 +185,8 @@ class PDHourlyOutputControlller extends Controller
             $data->shift = $request->get('shift');
             $data->lot = $request->get('lot');
             $data->deskription = $request->get('deskription');
+            $data->line = $request->get('line');
+            $data->model = $request->get('model');
             $data->save();
 
             return Redirect::to('pdhourlyoutput')->with('success', 'Data successfully updated !');

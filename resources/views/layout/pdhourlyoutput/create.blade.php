@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title','Create Data')
+@section('title','Form Input Data PDHourlyOutput')
 @section('content')
 
 <div id="page-wrapper">
@@ -20,55 +20,91 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="white-box">
-                    <h3 class="box-title m-b-0">Form PDHourlyOutput</h3>
+                    {{-- <h3 class="box-title m-b-0">Form PDHourlyOutput</h3> --}}
                     <!-- <p class="text-muted m-b-30 font-13"> Tolong pastikan RootCause, Issue & Actionnya jelas* </p> -->
                     <form action="{{ route('pdhourlyoutput.store') }}" class="form" method="POST">
                         @method('POST')
                         @csrf
-                        <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">NAME</label>
-                            <div class="col-10">
-                                <input class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" type="text" id="example-number-input">
-                            @error('name')
+                        <div class="form-group">
+                            <label class="col-sm-12">PROCESS</label>
+                            <div class="col-sm-12">
+                                <select class="custom-select col-10" id="inlineFormCustomSelect" name="process">
+                                    <option value="">---select process---</option>
+                                    @foreach($process as $process)
+                                        <option value="{{ $process }}" {{ old('process') == $process ? 'selected' : '' }}>{{ $process }}</option>
+                                @endforeach
+                                </select>
+                            @error('process')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-12">MODEL</label>
+                            <div class="col-sm-12">
+                                <select class="custom-select col-10" id="inlineFormCustomSelect" name="model">
+                                    <option value="">---select model---</option>
+                                    @foreach($model as $models)
+                                        <option value="{{ $models }}" {{ old('models') == $models ? 'selected' : '' }}>{{ $models }}</option>
+                                @endforeach
+                                </select>
+                            @error('model')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-12">LOT</label>
+                            <div class="col-sm-12">
+                                <select class="custom-select col-10" id="inlineFormCustomSelect" name="lot">
+                                    <option value="">---select lot---</option>
+                                    @foreach($lot as $lots)
+                                        <option value="{{ $lots }}" {{ old('lots') == $lots ? 'selected' : '' }}>{{ $lots }}</option>
+                                @endforeach
+                                </select>
+                            @error('lot')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-12">SHIFT</label>
+                            <div class="col-sm-12">
+                                <select class="custom-select col-10" id="inlineFormCustomSelect" name="shift">
+                                    <option value="">---select shifts---</option>
+                                    @foreach($shift as $shifts)
+                                        <option value="{{ $shifts }}" {{ old('shifts') == $shifts ? 'selected' : '' }}>{{ $shifts }}</option>
+                                @endforeach
+                                </select>
+                            @error('shift')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-12">LINE</label>
+                            <div class="col-sm-12">
+                                <select class="custom-select col-10" id="inlineFormCustomSelect" name="line">
+                                    <option value="">---select line---</option>
+                                    @foreach($line as $lines)
+                                        <option value="{{ $lines }}" {{ old('lines') == $lines ? 'selected' : '' }}>{{ $lines }}</option>
+                                @endforeach
+                                </select>
+                            @error('line')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">TIME</label>
+                            <label for="example-time-input" class="col-2 col-form-label">Time</label>
                             <div class="col-10">
-                                <input class="form-control @error('time') is-invalid @enderror" name="time" value="{{ old('time') }}" type="text" id="example-number-input">
+                                <input class="form-control @error('time') is-invalid @enderror" name="time" type="time" value="{{ old('time') }}" id="example-time-input">
                             @error('time')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">TARGET</label>
-                            <div class="col-10">
-                                <input class="form-control @error('target') is-invalid @enderror" name="target" value="{{ old('target') }}" type="text" id="example-number-input">
-                            @error('target')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">OUTPUT</label>
-                            <div class="col-10">
-                                <input class="form-control @error('output') is-invalid @enderror" name="output" value="{{ old('output') }}" type="text" id="example-number-input">
-                            @error('output')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">ACCM</label>
-                            <div class="col-10">
-                                <input class="form-control @error('accm') is-invalid @enderror" name="accm" value="{{ old('accm') }}" type="text" id="example-number-input">
-                            @error('accm')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                             </div>
@@ -84,55 +120,55 @@
                             </div>
                         </div>
 
-                        {{-- <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">DATE</label>
-                            <div class="col-10">
-                                <input class="form-control @error('date') is-invalid @enderror" name="date" value="{{ old('date') }}" type="text" id="example-number-input">
-                            @error('date')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-                            </div>
-                        </div> --}}
-
                         <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">PROCESS</label>
+                            <label for="example-number-input" class="col-2 col-form-label">TARGET</label>
                             <div class="col-10">
-                                <input class="form-control @error('process') is-invalid @enderror" name="process" value="{{ old('process') }}" type="text" id="example-number-input">
-                            @error('process')
+                                <input class="form-control @error('target') is-invalid @enderror" name="target" value="170" type="text" id="example-number-input" readonly>
+                            @error('target')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">SHIFT</label>
+                            <label for="example-number-input" class="col-2 col-form-label">OUTPUT</label>
                             <div class="col-10">
-                                <input class="form-control @error('shift') is-invalid @enderror" name="shift" value="{{ old('shift') }}" type="text" id="example-number-input">
-                            @error('shift')
+                                <input class="form-control @error('output') is-invalid @enderror" name="output" type="number" value="{{ old('output') }}" id="example-number-input">
+                             @error('output')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">LOT</label>
+                            <label for="example-number-input" class="col-2 col-form-label">ACCM</label>
                             <div class="col-10">
-                                <input class="form-control @error('lot') is-invalid @enderror" name="lot" value="{{ old('lot') }}" type="text" id="example-number-input">
-                            @error('lot')
+                                <input class="form-control @error('accm') is-invalid @enderror" name="accm" type="number" value="{{ old('accm') }}" id="example-number-input">
+                            @error('accm')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="example-text-input" class="col-2 col-form-label">DESKRIPTION</label>
+                            <label for="example-text-input" class="col-2 col-form-label">DESCRIPTION</label>
                             <div class="col-10">
                                 <textarea class="form-control" name="deskription" rows="5"></textarea>
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="example-number-input" class="col-2 col-form-label">PIC</label>
+                            <div class="col-10">
+                                <input class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" type="text" id="example-number-input">
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+
                         <div class="text-right">
-                            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
+                            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">SUBMIT</button>
                             {{-- <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button> --}}
                         </div>
                     </form>

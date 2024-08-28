@@ -25,6 +25,22 @@
                     <form action="{{ route('pdhourlyoutput.update' , $data->id) }}" class="form" method="POST">
                         @method('PUT')
                         @csrf
+
+                        <div class="form-group">
+                            <label class="col-sm-12">PROCESS</label>
+                            <div class="col-sm-12">
+                                <select class="custom-select col-10" id="inlineFormCustomSelect" name="process">
+                                    <option value="">---select process---</option>
+                                    @foreach($process as $process)
+                                        <option value="{{ $process }}" {{ old('process') == $process ? 'selected' : '' }}>{{ $process }}</option>
+                                @endforeach
+                                </select>
+                            @error('process')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="example-number-input" class="col-2 col-form-label">Production Name</label>
                             <div class="col-10">

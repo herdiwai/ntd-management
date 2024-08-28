@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Process;
 
 class PDHourlyOutput extends Model
 {
@@ -20,6 +21,14 @@ class PDHourlyOutput extends Model
         'process',
         'shift',
         'lot',
-        'deskription'
+        'deskription',
+        'line',
+        'model'
     ];
+
+    public function proceespdhourlyoutput() 
+    {
+        return $this->belongsTo(ProcessPDhourlyOutput::class);
+    }
+
 }

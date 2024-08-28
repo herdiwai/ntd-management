@@ -1,7 +1,7 @@
 
 
 @extends('layout.main')
-@section('title','Production hourly output')
+@section('title','Production Hourly Output')
 @section('content')
 
 
@@ -106,7 +106,7 @@
     <div class="container-fluid">
         <div class="row bg-title">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="page-title">Production Hourly Output</h4>
+                <h4 class="page-title">@yield('title')</h4>
             </div>
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 {{-- <a href="https://themeforest.net/item/elite-admin-responsive-dashboard-web-app-kit-/16750820" target="_blank" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Buy Now</a> --}}
@@ -124,18 +124,21 @@
                     <p class="text-muted m-b-30">Use a classes <code>btn btn-default btn-outline</code>to quickly create a Outline btn.</p> -->
                     <div class="row">
                         {{-- <a href="{{ route('pdhourlyoutput.create') }}"> </a> --}}
-                        <div class="col-lg-2 col-sm-2 col-xs-12">
+                        {{-- <div class="col-lg-2 col-sm-2 col-xs-12"> --}}
                             {{-- <button class="btn btn-block btn-outline btn-info waves-effect" data-toggle="modal" data-target="#responsive-modal">  <i class="ti-hand-point-up"></i> ADD DATA </button> --}}
-                            <button class="btn btn-block btn-outline btn-info waves-effect"> <a href="{{ route('pdhourlyoutput.create') }}"> <i class="ti-hand-point-up"></i> ADD DATA </button> </a>
-                        </div>
-                        <div class="col-lg-2 col-sm-2 col-xs-12">
+                            {{-- <button class="btn btn-block btn-outline btn-info waves-effect"> <a href="{{ route('pdhourlyoutput.create') }}"> <i class="ti-hand-point-up"></i> ADD DATA </button> </a> --}}
+                        {{-- </div> --}}
+                        {{-- <div class="col-lg-2 col-sm-2 col-xs-12">
                             <button class="btn btn-block btn-outline btn-primary waves-effect" ><i class="ti-view-list-alt"></i> VIEW PDF </button> 
                         </div>
                         <div class="col-lg-2 col-sm-2 col-xs-12">
                             <button class="btn btn-block btn-outline btn-success waves-effect" ><i class="ti-download"></i> DOWNLOAD PDF </button>
-                        </div>
+                        </div> --}}
                         <div class="col-lg-2 col-sm-2 col-xs-12">
-                            <button class="btn btn-block btn-outline btn-primary waves-effect"> <a href="{{ url('pdhourlyoutput/export/excel') }}"> <i class="ti-hand-point-up"></i> Download Excel </button> </a>
+                            <div class="button-group">
+                                <button class="btn btn-block btn-outline btn-sm btn-info waves-effect d-lg-block"> <a href="{{ route('pdhourlyoutput.create') }}"> <i class="fa fa-plus-circle"></i> ADD DATA </button> </a>
+                                <button class="btn btn-block btn-outline btn-sm btn-info waves-effect d-lg-block"> <a href="{{ url('pdhourlyoutput/export/excel') }}"> <i class="ti-download"></i> Download Excel </button> </a>
+                            </div>
                         </div>
                         <!-- <div class="col-lg-2 col-sm-4 col-xs-12">
                             <button class="btn btn-block btn-outline btn-danger waves-effect">Danger</button>
@@ -173,6 +176,12 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
+                    {{-- <div class="col-md-8 text-end">
+                        <div class="button-group">
+                            <button class="btn btn-primary btn-sm"> <a href="{{ route('pdhourlyoutput.create') }}"> <i class="fa fa-plus-circle"></i> ADD DATA </button> </a>
+                            <button class="btn btn-primary btn-sm"> <a href="{{ url('pdhourlyoutput/export/excel') }}"> <i class="ti-download"></i> Download Excel </button> </a>
+                        </div>
+                    </div> --}}
                     <!-- <div class="row">
                         <div class="col-lg-2 col-sm-4 col-xs-12">
                             <button class="btn btn-block btn-default waves-effect" a href="{{ route('pdhourlyoutput.create') }}" > ADD DATA</button> </a>
@@ -211,7 +220,7 @@
                     @endif
 
                         @include('layout.pdhourlyoutput.table', $data)
-
+                         
                     </div>
                 </div>
             </div>
