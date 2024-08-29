@@ -75,7 +75,7 @@
         {{-- @yield('content') --}}
     </div>
 
-    <footer class="footer text-center"> 2020 SMBPDS </footer>
+    <footer class="footer text-center"> 2024 SMBPDS <i class="ti-layout-media-center-alt"></i></footer>
     </div>
         @stack('before-scripts')
 

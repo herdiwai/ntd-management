@@ -18,9 +18,9 @@
             <!-- /.col-lg-12 -->
         </div>
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-8">
                 <div class="white-box">
-                    <h3 class="box-title m-b-0">Form EDIT PDHourlyOutput</h3>
+                    {{-- <h3 class="box-title m-b-0">Form EDIT PDHourlyOutput</h3> --}}
                     <!-- <p class="text-muted m-b-30 font-13"> Tolong pastikan RootCause, Issue & Actionnya jelas* </p> -->
                     <form action="{{ route('pdhourlyoutput.update' , $data->id) }}" class="form" method="POST">
                         @method('PUT')
@@ -30,91 +30,152 @@
                             <label class="col-sm-12">PROCESS</label>
                             <div class="col-sm-12">
                                 <select class="custom-select col-10" id="inlineFormCustomSelect" name="process">
-                                    <option value="">---select process---</option>
                                     @foreach($process as $process)
-                                        <option value="{{ $process }}" {{ old('process') == $process ? 'selected' : '' }}>{{ $process }}</option>
-                                @endforeach
+                                        <option value="{{ $process }}" {{ $process == $data->process ? 'selected' : '' }}>
+                                            {{ $process }}
+                                        </option>
+                                    @endforeach 
                                 </select>
                             @error('process')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                             </div>
                         </div>
+                        
+                        <div class="form-group">
+                            <label class="col-sm-12">MODEL</label>
+                            <div class="col-sm-12">
+                                <select class="custom-select col-10" id="inlineFormCustomSelect" name="model">
+                                    @foreach($model as $models)
+                                        <option value="{{ $models }}" {{ $models == $data->models ? 'selected' : '' }}>
+                                            {{ $models }}
+                                        </option>
+                                    @endforeach 
+                                </select>
+                            @error('model')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
 
-                        <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">Production Name</label>
-                            <div class="col-10">
-                                <input class="form-control" name="name" value="{{ $data->name }}" type="text" id="example-number-input">
+                        <div class="form-group">
+                            <label class="col-sm-12">LOT</label>
+                            <div class="col-sm-12">
+                                <select class="custom-select col-10" id="inlineFormCustomSelect" name="lot">
+                                    @foreach($lot as $lots)
+                                        <option value="{{ $lots }}" {{ $lots == $data->lots ? 'selected' : '' }}>
+                                            {{ $lots }}
+                                        </option>
+                                    @endforeach 
+                                </select>
+                            @error('lot')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-12">SHIFT</label>
+                            <div class="col-sm-12">
+                                <select class="custom-select col-10" id="inlineFormCustomSelect" name="lot">
+                                    @foreach($shift as $shifts)
+                                        <option value="{{ $shifts }}" {{ $shifts == $data->shifts ? 'selected' : '' }}>
+                                            {{ $shifts }}
+                                        </option>
+                                    @endforeach 
+                                </select>
+                            @error('shift')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-12">LINE</label>
+                            <div class="col-sm-12">
+                                <select class="custom-select col-10" id="inlineFormCustomSelect" name="line">
+                                    @foreach($line as $lines)
+                                        <option value="{{ $lines }}" {{ $lines == $data->lines ? 'selected' : '' }}>
+                                            {{ $lines }}
+                                        </option>
+                                    @endforeach 
+                                </select>
+                            @error('line')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">Time</label>
+                            <label for="example-time-input" class="col-2 col-form-label">Time</label>
                             <div class="col-10">
-                                <input class="form-control" name="time" value="{{ $data->time }}" type="text" id="example-number-input">
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">Target</label>
-                            <div class="col-10">
-                                <input class="form-control" name="target" value="{{ $data->target }}" type="text" id="example-number-input">
+                                <input class="form-control @error('time') is-invalid @enderror" name="time" type="time" value="{{ $data->time }}" id="example-time-input">
+                            @error('time')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">Output</label>
+                            <label for="example-date-input" class="col-2 col-form-label">DATE</label>
                             <div class="col-10">
-                                <input class="form-control" name="output" value="{{ $data->output }}" type="text" id="example-number-input">
+                                <input class="form-control  @error('date') is-invalid @enderror" type="date" name="date" value="{{ $data->date }}" id="example-date-input">
+                            @error('date')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="example-number-input" class="col-2 col-form-label">TARGET</label>
+                            <div class="col-10">
+                                <input class="form-control @error('target') is-invalid @enderror" name="target" value="170" type="text" id="example-number-input" readonly>
+                            @error('target')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="example-number-input" class="col-2 col-form-label">OUTPUT</label>
+                            <div class="col-10">
+                                <input class="form-control @error('output') is-invalid @enderror" name="output" type="number" value="{{ $data->output }}" id="example-number-input">
+                             @error('output')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="example-number-input" class="col-2 col-form-label">ACCM</label>
                             <div class="col-10">
-                                <input class="form-control" name="accm" value="{{ $data->accm }}" type="text" id="example-number-input">
+                                <input class="form-control @error('accm') is-invalid @enderror" name="accm" type="number" value="{{ $data->accm }}" id="example-number-input">
+                            @error('accm')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">Date</label>
+                            <label for="example-text-input" class="col-2 col-form-label">DESCRIPTION</label>
                             <div class="col-10">
-                                <input class="form-control" name="date" value="{{ $data->date }}" type="text" id="example-number-input">
+                                <textarea class="form-control" name="deskription" rows="5"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">Process</label>
+                            <label for="example-number-input" class="col-2 col-form-label">PIC</label>
                             <div class="col-10">
-                                <input class="form-control" name="process" value="{{ $data->process }}" type="text" id="example-number-input">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">Shift</label>
-                            <div class="col-10">
-                                <input class="form-control" name="shift" value="{{ $data->shift }}" type="text" id="example-number-input">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="example-number-input" class="col-2 col-form-label">Lot</label>
-                            <div class="col-10">
-                                <input class="form-control" name="lot" value="{{ $data->lot }}" type="text" id="example-number-input">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="example-text-input" class="col-2 col-form-label">Description</label>
-                            <div class="col-10">
-                                <textarea class="form-control" name="deskription" value="{{ $data->deskription }}" rows="5"></textarea>
+                                <input class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $data->name }}" type="text" id="example-number-input">
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                             </div>
                         </div>
 
                         <div class="text-right">
-                            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">Submit</button>
-                            <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button>
+                            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10"><i class="ti-save"></i> SAVE</button>
+                            <button type="submit" class="btn btn-inverse waves-effect waves-light"><i class="ti-back-left"></i> BACK</button>
                         </div>
                     </form>
                 </div>
@@ -125,7 +186,7 @@
 
 {{-- MODAL --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-4">
             <div class="white-box">
                 <h3 class="box-title">Responsive model</h3>
@@ -161,7 +222,7 @@
                 <!-- Button trigger modal -->
             </div>
         </div>
-    </div>
+    </div> --}}
 
  {{-- END MODAL --}}
  

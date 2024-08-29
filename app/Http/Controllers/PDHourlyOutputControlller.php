@@ -153,7 +153,13 @@ class PDHourlyOutputControlller extends Controller
     public function edit(string $id)
     {
         $data = PDHourlyOutput::find($id);
-        return view('layout.pdhourlyoutput.edit', ['data' =>$data]);
+        $shift = ['1st','2nd','3rd'];
+        $lot = ['B','C','D','E'];
+        $process = ['P1','P2','P3','P4','P5'];
+        $line = ['1','2','3','4'];
+        $model = ['KEE','KIE','K-SUPREME GSV','KCS','KSS','K-SLIM GSV','K90','K55'];
+        return view('layout.pdhourlyoutput.edit', compact('data','shift','lot','process','line','model'));
+        // return view('layout.pdhourlyoutput.edit', ['data' =>$data]);
     }
 
     /**
@@ -189,7 +195,7 @@ class PDHourlyOutputControlller extends Controller
             $data->model = $request->get('model');
             $data->save();
 
-            return Redirect::to('pdhourlyoutput')->with('success', 'Data successfully updated !');
+            return Redirect::to('pdhourlyoutput')->with('updated', 'Data successfully updated !');
             // redirect
             // Session::flash('message', 'Successfully updated PDHourlyOutput!');
            

@@ -216,7 +216,10 @@
                     <div class="table-responsive">
 
                     @if (Session('success'))
-                        <div class="alert alert-info">{{ Session('success') }}</div>
+                        <div class="alert alert-success">{{ Session('success') }}</div>
+                    @endif
+                    @if (Session('updated'))
+                        <div class="alert alert-success">{{ Session('updated') }}</div>
                     @endif
 
                         @include('layout.pdhourlyoutput.table', $data)

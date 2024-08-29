@@ -46,7 +46,7 @@
                                 <select class="custom-select col-10" id="inlineFormCustomSelect" name="model">
                                     <option value="">---select model---</option>
                                     @foreach($model as $models)
-                                        <option value="{{ $models }}" {{ old('models') == $models ? 'selected' : '' }}>{{ $models }}</option>
+                                        <option value="{{ $models }}" {{ old('model') == $models ? 'selected' : '' }}>{{ $models }}</option>
                                 @endforeach
                                 </select>
                             @error('model')
@@ -61,7 +61,7 @@
                                 <select class="custom-select col-10" id="inlineFormCustomSelect" name="lot">
                                     <option value="">---select lot---</option>
                                     @foreach($lot as $lots)
-                                        <option value="{{ $lots }}" {{ old('lots') == $lots ? 'selected' : '' }}>{{ $lots }}</option>
+                                        <option value="{{ $lots }}" {{ old('lot') == $lots ? 'selected' : '' }}>{{ $lots }}</option>
                                 @endforeach
                                 </select>
                             @error('lot')
@@ -76,7 +76,7 @@
                                 <select class="custom-select col-10" id="inlineFormCustomSelect" name="shift">
                                     <option value="">---select shifts---</option>
                                     @foreach($shift as $shifts)
-                                        <option value="{{ $shifts }}" {{ old('shifts') == $shifts ? 'selected' : '' }}>{{ $shifts }}</option>
+                                        <option value="{{ $shifts }}" {{ old('shift') == $shifts ? 'selected' : '' }}>{{ $shifts }}</option>
                                 @endforeach
                                 </select>
                             @error('shift')
@@ -91,7 +91,7 @@
                                 <select class="custom-select col-10" id="inlineFormCustomSelect" name="line">
                                     <option value="">---select line---</option>
                                     @foreach($line as $lines)
-                                        <option value="{{ $lines }}" {{ old('lines') == $lines ? 'selected' : '' }}>{{ $lines }}</option>
+                                        <option value="{{ $lines }}" {{ old('line') == $lines ? 'selected' : '' }}>{{ $lines }}</option>
                                 @endforeach
                                 </select>
                             @error('line')
@@ -113,7 +113,7 @@
                         <div class="form-group row">
                             <label for="example-date-input" class="col-2 col-form-label">DATE</label>
                             <div class="col-10">
-                                <input class="form-control  @error('date') is-invalid @enderror" type="date" name="date" value="{{ old('date') }} id="example-date-input">
+                                <input class="form-control  @error('date') is-invalid @enderror" type="date" name="date" value="{{ old('date') }}" id="example-date-input">
                             @error('date')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
@@ -168,8 +168,8 @@
                         </div>
 
                         <div class="text-right">
-                            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10">SUBMIT</button>
-                            {{-- <button type="submit" class="btn btn-inverse waves-effect waves-light">Cancel</button> --}}
+                            <button type="submit" class="btn btn-info waves-effect waves-light m-r-10"><i class="ti-save"></i> SAVE</button>
+                            <a href="{{ url('/pdhourlyoutput') }}" type="submit" class="btn btn-inverse waves-effect waves-light"><i class="ti-back-left"></i> BACK</a>
                         </div>
                     </form>
                 </div>

@@ -14,6 +14,7 @@
                 <th>ACCM</th>
                 <th>DESCRIPTION</th>
                 <th>PIC</th>
+                {{-- <th>ACTION</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -40,7 +41,7 @@
                         {{-- <form class="d-inline-block" action="{{ route('pdhourlyoutput.destroy', $pd->id) }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class='fcbtn btn btn-danger btn-outline btn-1b waves-effect'> <i class="ti-eraser"></i> Delete </button>
+                            <button type="submit" class='fcbtn btn btn-danger btn-outline btn-1b waves-effect' onclick="return confirm('Are You Sure?')"> <i class="ti-eraser"></i> Delete </button>
                         </fornm> --}}
                     {{-- </td> --}}
                 </tr>

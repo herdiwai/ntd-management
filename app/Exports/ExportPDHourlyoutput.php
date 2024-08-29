@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Models\PDHourlyOutput;
 use Maatwebsite\Excel\Concerns\FromView;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 
 class ExportPDHourlyoutput implements FromView
 {
