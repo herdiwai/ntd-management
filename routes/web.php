@@ -57,7 +57,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/pdhourlyoutput/download/pdf', [PDHourlyOutputControlller::class, 'download_pdf']);
 
     //Production Hourly Ouput Export Excel
-    Route::get('pdhourlyoutput/export/excel', [PDHourlyOutputControlller::class, 'export_excel']);
+    Route::get('/pdhourlyoutput/export/excel', [PDHourlyOutputControlller::class, 'exportToExcel'])->name('export.excel');
+    //Route::get('/pdhourlyoutput/export/excel', [PDHourlyOutputControlller::class, 'export'])->name('export.pdhourly');
+    //Route::get('pdhourlyoutput/export/excel', [PDHourlyOutputControlller::class, 'export_excel']);
 
     // QC Daily Pull Strength Test Record
     Route::resource('/pullstrengthtest', PullStrengthTestController::class);
@@ -66,7 +68,8 @@ Route::group(['middleware' => 'auth'], function() {
     //QC Daily Pull Strength Import Excel
     Route::get('/pullstrengthtest/import/excel', [PullStrengthTestController::class, 'pullstrength_import_excel']);
     //QC Daily Pull Strength Export Excel
-    Route::get('/pullstrengthtest/export', [PullStrengthTestController::class, 'export']);
+    //Route::get('/pullstrengthtest/export', [PullStrengthTestController::class, 'export']);
+    Route::get('/pullstrengthtest/export', [PullStrengthTestController::class, 'export'])->name('export.pullstrength');
    
 });
 

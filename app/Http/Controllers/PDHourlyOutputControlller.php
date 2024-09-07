@@ -21,19 +21,44 @@ class PDHourlyOutputControlller extends Controller
      */
     public function index()
     {
-        // $PDHourlyOutput = PDHourlyOutput::all();
-        // return view('layout.pdhourlyoutput.index', ['PDHourlyOutput' => $PDHourlyOutput]);
-
-        // $PDHourlyOutput = PDHourlyOutput::get();
-        // return view('layout.pdhourlyoutput.index', compact(['PDHourlyOutput']));
+        $data = PDHourlyOutput::all();
+        $shift = ['1st','2nd','3rd'];
+        $lot = ['B','C','D','E'];
+        $process = ['P1','P2','P3','P4','P5'];
+        $line = ['1','2','3','4'];
+        $model = ['KEE','KIE','K-SUPREME GSV','KCS','KSS','K-SLIM GSV','K90','K55'];
+        return view('layout.pdhourlyoutput.index', compact('data','shift','lot','process','line','model'));
+        
+        
         $data = DB::table('pdhourlyoutput')->latest()->get();
         return view('layout.pdhourlyoutput.index', compact('data'));
-        // return view('layout.pdhourlyoutput.index', ['data' =>$data]);
+        
     }
 
-    public function export_excel()
+    public function exportToExcel(Request $request)
     {
-        return Excel::download(new ExportPDHourlyoutput, "pdhourlyoutput.xlsx");
+        $lot = $request->input('lot');
+        $shift = $request->input('shift');
+        $line = $request->input('line');
+        $model = $request->input('model');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        //return Excel::download(new ExportPDHourlyoutput($startDate, $endDate), "pdhourlyoutput.xlsx");
+        //return Excel::download(new ExportPDHourlyoutput, "pdhourlyoutput.xlsx");
+
+            // Validate the date inputs
+            $request->validate([
+                'start_date' => 'nullable|date',
+                'end_date' => 'nullable|date|after_or_equal:start_date',
+            ]);
+    
+            // Create file name based on the date range
+            $fileName = 'data_export_' . now()->format('Ymd_His') . '.xlsx';
+    
+            // Return the Excel file
+            return Excel::download(new ExportPDHourlyoutput($lot, $shift, $line, $model, $startDate, $endDate), $fileName);
+        
     }
 
     static public function filter(Request $request) 

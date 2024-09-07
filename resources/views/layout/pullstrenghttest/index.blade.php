@@ -151,7 +151,7 @@
                         <p class="text-muted m-b-30"></p> --}}
                     <div class="row">
                             <!-- Filter by date -->
-                        <form action="/filterpulstrength" class="form" method="GET">
+                        
                             {{-- <div class="form-group row">
                                 <label for="example-date-input" class="col-2 col-form-label">Start Date</label>
                             <div class="col-8">
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                             <button type="submit" class='btn btn-primary btn-sm'> <i class="ti-filter"></i> Filter </button> --}}
-
+                        <form action="{{ route('export.pullstrength') }}" class="form" method="GET">
                             <div class="form-group row">
                                 <label for="example-date-input" class="col-2 col-form-label">Start Date</label>
                                 <div class="col-8">
@@ -182,6 +182,8 @@
                             
                                 <button type="submit" class='btn btn-primary'> <i class=""></i> Filter </button>
                                 <a href="{{ url('/pullstrengthtest') }}" class="btn btn-success">Reset</a>
+
+                                <button type="submit">Export to Excel</button>
                             
                         </form>
                         

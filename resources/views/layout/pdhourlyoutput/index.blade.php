@@ -112,8 +112,11 @@
                 {{-- <a href="https://themeforest.net/item/elite-admin-responsive-dashboard-web-app-kit-/16750820" target="_blank" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Buy Now</a> --}}
                 <ol class="breadcrumb">
                     <li><a href="{{ URL::to('/pdhourlyoutput') }}">@yield('title')</a></li>
-                    <li class="active">@yield('title')</li>
+                    {{-- <li class="active">@yield('title')</li> --}} 
+                    &nbsp;
+                    <button class="btn btn-primary"> <a href="{{ route('pdhourlyoutput.create') }}"> <i class="fa fa-plus-circle"></i> ADD DATA </button> </a>
                 </ol>
+               
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -143,9 +146,63 @@
         
                     {{-- <h3 class="m-b-0 m-t-30 box-title"></h3>
                         <p class="text-muted m-b-30"></p> --}}
+                       
+
+
                     <div class="row">
+
+                        <form action="{{ route('export.excel') }}" method="GET">
+            
+                            <select class="btn btn-secondary btn-sm" id="inlineFormCustomSelect" name="shift">
+                                <option value="">Select Lot</option>
+                                @foreach($lot as $lot)
+                                    <option value="{{ $lot }}" {{ old('lot') == $lot ? 'selected' : '' }}>{{ $lot }}</option>
+                            @endforeach
+                            </select>
+                            &nbsp;
+                
+                            <select class="btn btn-secondary btn-sm" id="inlineFormCustomSelect" name="shift">
+                                <option value="">Select Shift</option>
+                                @foreach($shift as $shift)
+                                    <option value="{{ $shift }}" {{ old('shift') == $shift ? 'selected' : '' }}>{{ $shift }}</option>
+                            @endforeach
+                            </select>
+                            &nbsp;
+
+                            <select class="btn btn-secondary btn-sm" id="inlineFormCustomSelect" name="line">
+                                <option value="">Select Line</option>
+                                @foreach($line as $line)
+                                    <option value="{{ $line }}" {{ old('line') == $line ? 'selected' : '' }}>{{ $line }}</option>
+                            @endforeach
+                            </select>
+                            &nbsp;
+                
+                            <select class="btn btn-secondary btn-sm" id="inlineFormCustomSelect" name="model">
+                                <option value="">Select Model</option>
+                                @foreach($model as $models)
+                                    <option value="{{ $models }}" {{ old('model') == $models ? 'selected' : '' }}>{{ $models }}</option>
+                            @endforeach
+                            </select>
+                            &nbsp;
+                
+                            <label for="start_date" >Start Date:</label>
+                            <input type="date" class="btn btn-secondary btn-sm" name="start_date" id="start_date" required>
+                        
+                            <label for="end_date">End Date:</label>
+                            <input type="date" class="btn btn-secondary btn-sm" name="end_date" id="end_date" required>
+                            &nbsp;
+                            <button type="submit" class="btn btn-success"><i class="ti-download"></i> Export to Excel</button>
+
+                            <a href="{{ url('/pdhourlyoutput') }}" class="btn btn-danger">Refresh</a>
+                            
+    
+                        </form>
+
+                       
+
+
                             <!-- Filter by date -->
-                        <form action="/filter" class="form" method="GET">
+                        {{-- <form action="/filter" class="form" method="GET">
                             <div class="form-group row">
                                 <label for="example-date-input" class="col-2 col-form-label">Start Date</label>
                             <div class="col-8">
@@ -159,21 +216,21 @@
                                 </div>
                             </div>
                             <button type="submit" class='btn btn-primary'> <i class=""></i> Filter </button>
-                            <a href="{{ url('/pullstrengthtest') }}" class="btn btn-success">Reset</a>
+                            <a href="{{ url('/pullstrengthtest') }}" class="btn btn-success">Reset</a> --}}
                             {{-- <button type="button" name="refresh" id="refresh" class="btn btn-warning btn-sm">Refresh</button> --}}
-                        </form>
+                        {{-- </form> --}}
                     </div>
                 </div>
             </div>
         </div>
 
-        <button class="fcbtn btn btn-primary btn-outline btn-1b waves-effect"> <a href="{{ route('pdhourlyoutput.create') }}"> <i class="fa fa-plus-circle"></i> ADD DATA </button> </a>
-        &nbsp;
-        <a href="{{ url('pdhourlyoutput/export/excel?start_date='.Request()->start_date.'&end_date='.Request()->end_date) }}" class="fcbtn btn btn-success btn-outline btn-1b waves-effect"> <i class="ti-download"></i> Download Excel</a>
+       
+        {{-- <a href="{{ url('pdhourlyoutput/export/excel?start_date='.Request()->start_date.'&end_date='.Request()->end_date) }}" class="fcbtn btn btn-success btn-outline btn-1b waves-effect"> <i class="ti-download"></i> Download Excel</a>
         <form action="{{ url('pdhourlyoutput/export/excel') }}" method="get">
             <input type="hidden" name="start_date" value="{{ Request()->start_date }}">
             <input type="hidden" name="end_date" value="{{ Request()->end_date }}">
-        </form>
+        </form> --}}
+       
         <br>
         <br>
         <!-- Table Production Hourly Output -->
@@ -241,7 +298,7 @@
                                     <th>ACCM</th>
                                     <th>DESCRIPTION</th>
                                     <th>PIC</th>
-                                    <th>ACTION</th>
+                                    {{-- <th>ACTION</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -262,15 +319,15 @@
                                         <td>{{ $pd->name }}</td>
                     
                                         {{-- <td>{{ $pd->created_at->format('Y-m-d') }}</td> --}}
-                                        <td>
-                                            <a href="{{ route('pdhourlyoutput.edit', $pd->id) }}" class='fcbtn btn btn-primary btn-outline btn-1b waves-effect'> <i class="ti-pencil-alt"></i> Edit </a>
+                                        {{-- <td>
+                                            <a href="{{ route('pdhourlyoutput.edit', $pd->id) }}" class='fcbtn btn btn-primary btn-outline btn-1b waves-effect'> <i class="ti-pencil-alt"></i> Edit </a> --}}
                                             {{-- <a href="{{ route('pdhourlyoutput.destroy', $pd->id) }}" class='fcbtn btn btn-danger btn-outline btn-1b waves-effect' onclick="return confirm('Are You Sure?')"> <i class="ti-pencil-alt"></i> Hapus </a> --}}
-                                            <form class="d-inline-block" action="{{ route('pdhourlyoutput.destroy', $pd->id) }}" method="post">
+                                            {{-- <form class="d-inline-block" action="{{ route('pdhourlyoutput.destroy', $pd->id) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class='fcbtn btn btn-danger btn-outline btn-1b waves-effect' onclick="return confirm('Are You Sure?')"> <i class="ti-eraser"></i> Delete </button>
                                             </fornm>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach 
                             </tbody>

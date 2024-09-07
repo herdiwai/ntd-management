@@ -13,9 +13,13 @@ class PullStrengthTestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new PullStrengthTestExport, 'pull.xlsx');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        return Excel::download(new PullStrengthTestExport($startDate, $endDate), 'PullStrength.xlsx');
+
     }
 
 
