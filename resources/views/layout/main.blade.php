@@ -30,6 +30,11 @@
     <link href="{{ asset('eliteadmin/css/style.css') }}" rel="stylesheet">
     <!-- color CSS -->
     <link href="{{ asset('eliteadmin/css/colors/default.css') }}" id="theme" rel="stylesheet">
+
+    {{-- Toastr notification --}}
+    <link rel="stylesheet" type="text/css" href="{{ asset('eliteadmin/plugins/bower_components/toastr/css/toastr.css') }}" >
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -119,6 +124,31 @@
         <script src="{{ asset('eliteadmin/plugins/bower_components/vfs_fonts.js' ) }}"></script>
         <script src="{{ asset('eliteadmin/plugins/bower_components/buttons.html5.min.js' ) }}"></script>
         <script src="{{ asset('eliteadmin/plugins/bower_components/buttons.print.min.js' ) }}"></script>
+
+        <script type="text/javascript" src="{{ asset('eliteadmin/plugins/bower_components/toastr/js/toastr.min.js') }}"></script>
+
+		<script>
+			@if(Session::has('message'))
+			var type = "{{ Session::get('alert-type','info') }}"
+			switch(type){
+				case 'info':
+				toastr.info(" {{ Session::get('message') }} ");
+				break;
+
+				case 'success':
+				toastr.success(" {{ Session::get('message') }} ");
+				break;
+
+				case 'warning':
+				toastr.warning(" {{ Session::get('message') }} ");
+				break;
+
+				case 'error':
+				toastr.error(" {{ Session::get('message') }} ");
+				break; 
+			}
+			@endif 
+		</script>
             
         @stack('after-scripts')
         <script>

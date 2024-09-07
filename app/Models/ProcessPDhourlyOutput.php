@@ -9,7 +9,7 @@ class ProcessPDhourlyOutput extends Model
 {
     use HasFactory;
 
-    protected $table = 'process_pdhourlyoutput';
+    // protected $table = 'process_pdhourlyoutput';
 
     protected $fillable = [
         'process',

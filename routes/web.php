@@ -6,6 +6,8 @@ use App\Http\Controllers\TableMrrController;
 use App\Http\Controllers\OtentikasiController;
 use App\Http\Controllers\PDHourlyOutputControlller;
 use App\Http\Controllers\HourlyOutputPDController;
+use App\Http\Controllers\PullStrengthTestController;
+use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -56,8 +58,17 @@ Route::group(['middleware' => 'auth'], function() {
 
     //Production Hourly Ouput Export Excel
     Route::get('pdhourlyoutput/export/excel', [PDHourlyOutputControlller::class, 'export_excel']);
-});
 
+    // QC Daily Pull Strength Test Record
+    Route::resource('/pullstrengthtest', PullStrengthTestController::class);
+    //QC Daily Pull Strength Test Record filter
+    Route::get('/filterpulstrength', [PullStrengthTestController::class, 'filterpulstrength']);
+    //QC Daily Pull Strength Import Excel
+    Route::get('/pullstrengthtest/import/excel', [PullStrengthTestController::class, 'pullstrength_import_excel']);
+    //QC Daily Pull Strength Export Excel
+    Route::get('/pullstrengthtest/export', [PullStrengthTestController::class, 'export']);
+   
+});
 
 
 

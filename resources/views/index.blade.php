@@ -394,7 +394,7 @@
                     </div>
                 </div>
             </div> -->
-           <h3> Hi, {{ Auth::User()->name }} Welcome to SMBPDS  </h3>
+           <h3> Hi, {{ Auth::User()->name }} Welcome to BTM-SYSTEM  </h3>
         </div>
     </div>
 </div>

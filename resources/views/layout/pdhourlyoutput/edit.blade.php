@@ -175,7 +175,7 @@
 
                         <div class="text-right">
                             <button type="submit" class="btn btn-info waves-effect waves-light m-r-10"><i class="ti-save"></i> SAVE</button>
-                            <button type="submit" class="btn btn-inverse waves-effect waves-light"><i class="ti-back-left"></i> BACK</button>
+                            <a href="{{ url('/pdhourlyoutput') }}" type="submit" class="btn btn-inverse waves-effect waves-light"><i class="ti-back-left"></i> BACK</a>
                         </div>
                     </form>
                 </div>

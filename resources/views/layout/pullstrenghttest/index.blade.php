@@ -1,7 +1,7 @@
 
 
 @extends('layout.main')
-@section('title','Production Hourly Output')
+@section('title','QC Daily Pull Strength Test')
 @section('content')
 
 
@@ -111,7 +111,7 @@
             <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                 {{-- <a href="https://themeforest.net/item/elite-admin-responsive-dashboard-web-app-kit-/16750820" target="_blank" class="btn btn-danger pull-right m-l-20 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">Buy Now</a> --}}
                 <ol class="breadcrumb">
-                    <li><a href="{{ URL::to('/pdhourlyoutput') }}">@yield('title')</a></li>
+                    <li><a href="{{ URL::to('/pullstrengthtest') }}">@yield('title')</a></li>
                     <li class="active">@yield('title')</li>
                 </ol>
             </div>
@@ -122,7 +122,7 @@
                 <div class="white-box button-box">
                 <!-- <h3 class="m-b-0 box-title">Outline Buttons </h3>
                     <p class="text-muted m-b-30">Use a classes <code>btn btn-default btn-outline</code>to quickly create a Outline btn.</p> -->
-             
+                    <div class="row">
                         {{-- <a href="{{ route('pdhourlyoutput.create') }}"> </a> --}}
                         {{-- <div class="col-lg-2 col-sm-2 col-xs-12"> --}}
                             {{-- <button class="btn btn-block btn-outline btn-info waves-effect" data-toggle="modal" data-target="#responsive-modal">  <i class="ti-hand-point-up"></i> ADD DATA </button> --}}
@@ -134,49 +134,73 @@
                         <div class="col-lg-2 col-sm-2 col-xs-12">
                             <button class="btn btn-block btn-outline btn-success waves-effect" ><i class="ti-download"></i> DOWNLOAD PDF </button>
                         </div> --}}
+                        {{-- <div class="col-lg-2 col-sm-2 col-xs-12"> --}}
+                            {{-- <div class="button-group"> --}}
+                                {{-- <button class="btn btn-block btn-outline btn-sm btn-info waves-effect d-lg-block"> <a href="{{ route('pullstrengthtest.create') }}"> <i class="fa fa-plus-circle"></i> ADD DATA </button> </a> --}}
+                                {{-- <button class="btn btn-block btn-outline btn-sm btn-info waves-effect d-lg-block"> <a href="{{ url('pdhourlyoutput/export/excel') }}"> <i class="ti-download"></i> Download Excel </button> </a> --}}
+                            {{-- </div> --}}
+                        {{-- </div> --}}
                         <!-- <div class="col-lg-2 col-sm-4 col-xs-12">
                             <button class="btn btn-block btn-outline btn-danger waves-effect">Danger</button>
                         </div>
                         <div class="col-lg-2 col-sm-4 col-xs-12">
                             <button class="btn btn-block btn-outline btn-warning waves-effect">Warning</button>
                         </div> -->
-        
+                    </div>
                     {{-- <h3 class="m-b-0 m-t-30 box-title"></h3>
                         <p class="text-muted m-b-30"></p> --}}
                     <div class="row">
                             <!-- Filter by date -->
-                        <form action="/filter" class="form" method="GET">
-                            <div class="form-group row">
+                        <form action="/filterpulstrength" class="form" method="GET">
+                            {{-- <div class="form-group row">
                                 <label for="example-date-input" class="col-2 col-form-label">Start Date</label>
                             <div class="col-8">
-                                    <input class="form-control" type="date" name="start_date" value="{{ Request()->start_date }}" id="example-date-input">
+                                    <input class="form-control" type="date" name="start_date" id="example-date-input">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="example-date-input" class="col-2 col-form-label">End Date</label>
                             <div class="col-8">
-                                    <input class="form-control" type="date" name="end_date" value="{{ Request()->end_date }}" id="example-date-input">
+                                    <input class="form-control" type="date" name="end_date" id="example-date-input">
                                 </div>
                             </div>
-                            <button type="submit" class='btn btn-primary'> <i class=""></i> Filter </button>
-                            <a href="{{ url('/pullstrengthtest') }}" class="btn btn-success">Reset</a>
-                            {{-- <button type="button" name="refresh" id="refresh" class="btn btn-warning btn-sm">Refresh</button> --}}
+                            <button type="submit" class='btn btn-primary btn-sm'> <i class="ti-filter"></i> Filter </button> --}}
+
+                            <div class="form-group row">
+                                <label for="example-date-input" class="col-2 col-form-label">Start Date</label>
+                                <div class="col-8">
+                                <input class="form-control" type="date" name="start_date" id="example-date-input">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="example-date-input" class="col-2 col-form-label">End Date</label>
+                                <div class="col-8">
+                                    <input class="form-control" type="date" name="end_date" id="example-date-input">
+                                </div>
+                            </div>
+                            
+                                <button type="submit" class='btn btn-primary'> <i class=""></i> Filter </button>
+                                <a href="{{ url('/pullstrengthtest') }}" class="btn btn-success">Reset</a>
+                            
                         </form>
+                        
                     </div>
                 </div>
             </div>
         </div>
-
-        <button class="fcbtn btn btn-primary btn-outline btn-1b waves-effect"> <a href="{{ route('pdhourlyoutput.create') }}"> <i class="fa fa-plus-circle"></i> ADD DATA </button> </a>
-        &nbsp;
-        <a href="{{ url('pdhourlyoutput/export/excel?start_date='.Request()->start_date.'&end_date='.Request()->end_date) }}" class="fcbtn btn btn-success btn-outline btn-1b waves-effect"> <i class="ti-download"></i> Download Excel</a>
-        <form action="{{ url('pdhourlyoutput/export/excel') }}" method="get">
+        <!-- Table Production Hourly Output -->
+        <button class="fcbtn btn btn-primary btn-outline btn-1b waves-effect"> <a href="{{ route('pullstrengthtest.create') }}"> <i class="fa fa-plus-circle"></i> ADD DATA </button> </a>
+        {{-- <form action="{{ url('pdhourlyoutput/export/excel') }}" method="get">
             <input type="hidden" name="start_date" value="{{ Request()->start_date }}">
             <input type="hidden" name="end_date" value="{{ Request()->end_date }}">
-        </form>
+            <a href="{{ url('pdhourlyoutput/export/excel?start_date='.Request()->start_date.'&end_date='.Request()->end_date) }}" class="fcbtn btn btn-success btn-outline btn-1b waves-effect"> <i class="ti-download"></i> Download Excel</a>
+        </form> --}}
         <br>
         <br>
-        <!-- Table Production Hourly Output -->
+        {{-- <button class="fcbtn btn btn-success btn-outline btn-1b waves-effect"> <a href="{{ url('pullstrengthtest/import/excel') }}"> <i class="fa fa-plus-circle"></i> IMPORT </button> </a>
+        &nbsp; &nbsp;
+        <button class="fcbtn btn btn-warning btn-outline btn-1b waves-effect"> <a href="{{ url('pullstrengthtest/export') }}"> <i class="fa fa-plus-circle"></i> EXPORT </button> </a> --}}
         <div class="row">
             <div class="col-sm-12">
                 <div class="white-box">
@@ -223,60 +247,10 @@
                         <div class="alert alert-success">{{ Session('success') }}</div>
                     @endif
                     @if (Session('updated'))
-                        <div class="alert alert-success">{{ Session('updated') }}</div>
+                        <div class="alert alert-info">{{ Session('updated') }}</div>
                     @endif
-                    <table id="myTable" class="table table-striped">
-                        <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>DATE</th>
-                                    <th>PROCESS</th>
-                                    <th>MODEL</th>
-                                    <th>LOT</th>
-                                    <th>SHIFT</th>
-                                    <th>LINE</th>
-                                    <th>TIME</th>
-                                    <th>TARGET</th> 
-                                    <th>OUTPUT</th>
-                                    <th>ACCM</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>PIC</th>
-                                    <th>ACTION</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data as $key => $pd)
-                                    <tr>
-                                        <td>{{ $key+1 }}</td>
-                                        <td>{{ $pd->date }}</td>
-                                        <td>{{ $pd->process }}</td>
-                                        <td>{{ $pd->model }}</td>
-                                        <td>{{ $pd->lot }}</td>
-                                        <td>{{ $pd->shift }}</td>
-                                        <td>{{ $pd->line }}</td>
-                                        <td>{{ $pd->time }}</td>
-                                        <td>{{ $pd->target }}</td>
-                                        <td>{{ $pd->output }}</td>
-                                        <td>{{ $pd->accm }}</td>
-                                        <td>{{ $pd->deskription }}</td>
-                                        <td>{{ $pd->name }}</td>
-                    
-                                        {{-- <td>{{ $pd->created_at->format('Y-m-d') }}</td> --}}
-                                        <td>
-                                            <a href="{{ route('pdhourlyoutput.edit', $pd->id) }}" class='fcbtn btn btn-primary btn-outline btn-1b waves-effect'> <i class="ti-pencil-alt"></i> Edit </a>
-                                            {{-- <a href="{{ route('pdhourlyoutput.destroy', $pd->id) }}" class='fcbtn btn btn-danger btn-outline btn-1b waves-effect' onclick="return confirm('Are You Sure?')"> <i class="ti-pencil-alt"></i> Hapus </a> --}}
-                                            <form class="d-inline-block" action="{{ route('pdhourlyoutput.destroy', $pd->id) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class='fcbtn btn btn-danger btn-outline btn-1b waves-effect' onclick="return confirm('Are You Sure?')"> <i class="ti-eraser"></i> Delete </button>
-                                            </fornm>
-                                        </td>
-                                    </tr>
-                                @endforeach 
-                            </tbody>
-                        </table>
 
-                        {{-- @include('layout.pdhourlyoutput.table', $data) --}}
+                    @include('layout.pullstrenghttest.table', $data)
                          
                     </div>
                 </div>
